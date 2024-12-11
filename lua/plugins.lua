@@ -231,6 +231,7 @@ lspconfig.helm_ls.setup {
           schemas = {
             ["https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.31.0/all.json"] = "**",
             -- https://github.com/datreeio/CRDs-catalog/tree/main
+            -- https://www.arthurkoziel.com/json-schemas-in-neovim/
           }
         }
       }
