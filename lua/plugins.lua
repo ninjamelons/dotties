@@ -221,20 +221,9 @@ lspconfig.r_language_server.setup {
   capabilities = capabilities,
   filetypes = { 'r', 'R', 'rmd' }
 }
+-- https://github.com/datreeio/CRDs-catalog/tree/main
+-- https://www.arthurkoziel.com/json-schemas-in-neovim/
 lspconfig.helm_ls.setup {
   capabilities = capabilities,
   filetypes = { 'yaml', 'yml' },
-  settings = {
-    ['helm-ls'] = {
-      yamlls = {
-        config = {
-          schemas = {
-            ["https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.31.0/all.json"] = "**",
-            -- https://github.com/datreeio/CRDs-catalog/tree/main
-            -- https://www.arthurkoziel.com/json-schemas-in-neovim/
-          }
-        }
-      }
-    }
-  }
 }
