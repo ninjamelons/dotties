@@ -225,5 +225,5 @@ lspconfig.r_language_server.setup {
 -- https://www.arthurkoziel.com/json-schemas-in-neovim/
 lspconfig.helm_ls.setup {
   capabilities = capabilities,
-  filetypes = { 'yaml', 'yml' },
+  filetypes = { 'yaml', 'yml' }
 }
