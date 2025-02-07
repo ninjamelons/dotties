@@ -81,7 +81,6 @@ treesitter.setup({
 })
 
 -- Keymaps
-vim.api.nvim_set_keymap('n', '<C-n>', ':NERDTreeToggle<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<C-ø>', '', { noremap = true, callback = function ()
   vim.cmd("silent !kitty &")
 end
