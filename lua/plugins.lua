@@ -87,7 +87,7 @@ end
 })
 
 -- FzfLua keymaps
-vim.api.nvim_set_keymap('n', '<C-p>', ':FzfLua files<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<C-p>', ':FzfLua files winopts.preview.layout=vertical winopts.fullscreen=true winopts.preview.wrap=true<CR><CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<C-g>', ':FzfLua live_grep<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<C-\\>', ':FzfLua buffers<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<C-k>', ':FzfLua builtin<CR>', { noremap = true })
