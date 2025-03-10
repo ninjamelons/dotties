@@ -87,11 +87,11 @@ end
 })
 
 -- FzfLua keymaps
-vim.api.nvim_set_keymap('n', '<C-p>', ':FzfLua files winopts.preview.layout=vertical winopts.fullscreen=true winopts.preview.wrap=true<CR><CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<C-g>', ':FzfLua live_grep<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<C-\\>', ':FzfLua buffers<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<C-k>', ':FzfLua builtin<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<C-æ>', ':FzfLua lsp_references<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<C-p>', ':FzfLua files winopts.fullscreen=true winopts.preview.wrap=true<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<C-g>', ':FzfLua live_grep winopts.fullscreen=true winopts.preview.wrap=true<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<C-\\>', ':FzfLua buffers winopts.fullscreen=true winopts.preview.wrap=true<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<C-k>', ':FzfLua builtin winopts.fullscreen=true winopts.preview.wrap=true<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<C-æ>', ':FzfLua lsp_references winopts.fullscreen=true winopts.preview.wrap=true<CR>', { noremap = true })
 
 -- Ctrl Arrow keys (insert/command modes)
 vim.api.nvim_set_keymap('i', '<C-h>', '<Left>', { noremap = true })
