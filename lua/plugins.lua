@@ -232,7 +232,8 @@ lspconfig.helm_ls.setup {
 require('lspconfig.configs').fastly_vcl_lsp = {
   default_config = {
     name = 'fastly-vcl-lsp',
-    cmd = { 'node', '/usr/lib/node_modules/fastly-vcl-lsp/out/server.js' },
+    cmd = { 'node', '/usr/lib/node_modules/fastly-vcl-lsp/out/server.js', '--stdio' },
+    root_dir = require('lspconfig.util').root_pattern('.git', '*.vcl'),
     filetypes = { 'vcl' }
   }
 }
