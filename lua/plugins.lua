@@ -226,3 +226,17 @@ lspconfig.helm_ls.setup {
   capabilities = capabilities,
   filetypes = { 'yaml', 'yml' }
 }
+
+-- https://www.npmjs.com/package/fastly-vcl-lsp
+-- https://vi.stackexchange.com/questions/42926/how-do-i-add-a-custom-lsp-to-nvim-lspconfig
+require('lspconfig.configs').fastly_vcl_lsp = {
+  default_config = {
+    name = 'fastly-vcl-lsp',
+    cmd = { 'node', '/usr/lib/node_modules/fastly-vcl-lsp/out/server.js' },
+    filetypes = { 'vcl' }
+  }
+}
+lspconfig.fastly_vcl_lsp.setup {
+  capabilities = capabilities,
+  filetypes = { 'vcl' }
+}
