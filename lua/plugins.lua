@@ -212,6 +212,11 @@ lspconfig.kotlin_language_server.setup {
 	capabilities = capabilities,
   filetypes = { 'kt', 'kotlin' }
 }
+lspconfig.java_language_server.setup {
+  capabilities = capabilities,
+  filetypes = { 'java' },
+  cmd = { '/home/filipo/Repos/java-language-server/dist/lang_server_linux.sh' }
+}
 lspconfig.gopls.setup {
   capabilities = capabilities,
   filetypes = { 'go', 'golang' }
