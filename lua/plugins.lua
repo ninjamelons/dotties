@@ -2,6 +2,8 @@ local Plug = vim.fn['plug#']
 
 vim.call('plug#begin')
 
+Plug 'Mofiqul/vscode.nvim'
+
 Plug('MunifTanjim/nui.nvim')
 Plug('nvim-lualine/lualine.nvim')
 Plug('topaxi/pipeline.nvim')
@@ -50,6 +52,14 @@ vim.api.nvim_create_autocmd({"BufEnter"}, {
 })
 
 -- Misc Plugins
+vim.o.background = 'dark'
+local c = require('vscode.colors').get_colors()
+require('vscode').setup({
+  underline_links = true,
+  terminal_colors = true,
+})
+require('vscode').load()
+
 require('pipeline').setup({
   build = 'yq',
 })
@@ -58,12 +68,24 @@ require('lualine').setup({
     lualine_a = {
       { 'pipeline' }
     }
+  },
+  options = {
+    theme = 'vscode',
   }
 })
 
 local iblhooks = require('ibl.hooks')
-require('ibl').setup { scope = { highlight = { "Normal" } }}
+require('ibl').setup({
+  scope = { highlight = { "Normal" } },
+  viewport_buffer = {
+    min = 100
+  }
+})
 iblhooks.register(iblhooks.type.SCOPE_HIGHLIGHT, iblhooks.builtin.scope_highlight_from_extmark)
+vim.opt.smartindent = true
+vim.opt.expandtab = true
+vim.opt.shiftwidth = 2
+vim.opt.tabstop = 2
 
 require('gitsigns').setup {
 	on_attach = function(buf)

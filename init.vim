@@ -17,14 +17,11 @@ set wildmenu
 set wildmode=list:longest
 set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
 
-" Configure tab size
-set tabstop=2 shiftwidth=2 expandtab
-
 set background=dark
 set omnifunc=syntaxcomplete#Complete
 set cot+=preview
 
-colorscheme desert
+" colorscheme desert
 
 lua require('plugins')
 
