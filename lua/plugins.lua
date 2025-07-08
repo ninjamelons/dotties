@@ -10,9 +10,11 @@ Plug('topaxi/pipeline.nvim')
 Plug('lukas-reineke/indent-blankline.nvim')
 Plug('preservim/nerdtree')
 Plug('lewis6991/gitsigns.nvim')
+Plug('tpope/vim-fugitive')
 Plug('windwp/nvim-autopairs')
 Plug('nvim-treesitter/nvim-treesitter')
 Plug('mg979/vim-visual-multi', { branch = "master" })
+Plug('smjonas/inc-rename.nvim')
 
 Plug('junegunn/fzf', { ['do'] = vim.fn['fzf#install'] })
 Plug('ibhagwan/fzf-lua', { branch = 'main' })
@@ -91,7 +93,8 @@ require('gitsigns').setup {
 	on_attach = function(buf)
 		vim.api.nvim_buf_set_keymap(buf, 'n', ']c', ':Gitsigns next_hunk<CR>', { noremap = true })
 		vim.api.nvim_buf_set_keymap(buf, 'n', '[c', ':Gitsigns prev_hunk<CR>', { noremap = true })
-	end
+	end,
+  current_line_blame = true,
 }
 require('nvim-autopairs').setup()
 local treesitter = require('nvim-treesitter.configs')
@@ -99,14 +102,21 @@ treesitter.setup({
 	ensure_installed = 'all',
   highlight = { enable = true },
 	indent = { enable = false },
+  auto_install = true,
 	autotag = { enable = true, enable_close_on_slash = false },
 })
+
+require("inc_rename").setup()
 
 -- Keymaps
 vim.api.nvim_set_keymap('n', '<C-ø>', '', { noremap = true, callback = function ()
   vim.cmd("silent !kitty &")
 end
 })
+
+vim.api.nvim_set_keymap("n", "<leader>rn", ":IncRename ", { noremap = true })
+vim.api.nvim_set_keymap("n", "<leader>t", ":tabnew | terminal<CR> | :startinsert<CR>", { noremap = true })
+vim.api.nvim_set_keymap("t", "<C-\\>l", "<C-\\><C-n> :q <CR>", { noremap = true })
 
 -- FzfLua keymaps
 vim.api.nvim_set_keymap('n', '<C-p>', ':FzfLua files winopts.fullscreen=true winopts.preview.wrap=true<CR>', { noremap = true })
