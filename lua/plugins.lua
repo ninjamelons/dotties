@@ -99,7 +99,7 @@ require('gitsigns').setup {
 require('nvim-autopairs').setup()
 local treesitter = require('nvim-treesitter.configs')
 treesitter.setup({
-	ensure_installed = 'all',
+	-- ensure_installed = 'all',
   highlight = { enable = true },
 	indent = { enable = false },
   auto_install = true,
