@@ -286,18 +286,19 @@ lspconfig.r_language_server.setup {
   filetypes = { 'r', 'R', 'rmd' }
 }
 
+lspconfig.gdscript.setup {}
+
 -- https://www.reddit.com/r/neovim/comments/13ski66/neovim_configuration_for_godot_4_lsp_as_simple_as/
 local gdport = os.getenv('GDScript_Port') or '6005'
 local gdcmd = vim.lsp.rpc.connect('127.0.0.1', tonumber(gdport))
-local pipe = '/tmp/godot.pipe'
 
 vim.lsp.start({
   name = 'Godot',
-  cmd = gdcmd,
+  cmd = function(dispatchers)
+    vim.api.nvim_command('echo serverstart("/tmp/godot.pipe")')
+    return gdcmd(dispatchers)
+  end,
   root_dir = vim.fs.dirname(vim.fs.find({ 'project.godot', '.git' }, { upward = true })[1]),
-  on_attach = function(client, bufnr)
-    vim.api.nvim_command('echo serverstart("' .. pipe ..'")')
-  end
 })
 
 -- https://github.com/datreeio/CRDs-catalog/tree/main
