@@ -2,14 +2,18 @@ local Plug = vim.fn['plug#']
 
 vim.call('plug#begin')
 
-Plug 'Mofiqul/vscode.nvim'
+Plug('Mofiqul/vscode.nvim')
 
 Plug('MunifTanjim/nui.nvim')
 Plug('nvim-lualine/lualine.nvim')
 Plug('topaxi/pipeline.nvim')
 Plug('lukas-reineke/indent-blankline.nvim')
 Plug('preservim/nerdtree')
+
+Plug('sindrets/diffview.nvim')
+Plug('akinsho/git-conflict.nvim')
 Plug('lewis6991/gitsigns.nvim')
+
 Plug('tpope/vim-fugitive')
 Plug('windwp/nvim-autopairs')
 Plug('nvim-treesitter/nvim-treesitter')
@@ -91,6 +95,7 @@ vim.opt.expandtab = true
 vim.opt.shiftwidth = 2
 vim.opt.tabstop = 2
 
+require('git-conflict').setup()
 require('gitsigns').setup {
 	on_attach = function(buf)
 		vim.api.nvim_buf_set_keymap(buf, 'n', ']c', ':Gitsigns next_hunk<CR>', { noremap = true })
