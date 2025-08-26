@@ -96,6 +96,9 @@ vim.opt.expandtab = true
 vim.opt.shiftwidth = 2
 vim.opt.tabstop = 2
 
+vim.api.nvim_set_keymap('n', '<leader>dfo', ':DiffviewOpen<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>dfc', ':DiffviewClose<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>dff', ':DiffviewFileHistory<CR>', { noremap = true })
 require('git-conflict').setup()
 require('gitsigns').setup {
 	on_attach = function(buf)
