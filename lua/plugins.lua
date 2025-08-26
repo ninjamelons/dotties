@@ -32,6 +32,8 @@ Plug('hrsh7th/cmp-path')
 Plug('hrsh7th/cmp-cmdline')
 Plug('hrsh7th/nvim-cmp')
 
+Plug('mfussenegger/nvim-dap')
+
 Plug('L3MON4D3/LuaSnip')
 Plug('saadparwaiz1/cmp_luasnip')
 
@@ -348,6 +350,27 @@ vim.lsp.start({
   end,
   root_dir = vim.fs.dirname(vim.fs.find({ 'project.godot', '.git' }, { upward = true })[1]),
 })
+
+local dap = require('dap')
+dap.adapters.godot = {
+  type = 'server',
+  host = '127.0.0.1',
+  port = 6006,
+}
+
+dap.configurations.gdscript = {
+  {
+    type = 'godot',
+    request = 'launch',
+    name = 'Launch scene',
+    project = '${workspaceFolder}',
+    launch_scene = true,
+  },
+}
+vim.api.nvim_set_keymap("n", "<F5>", ":DapNew<CR>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<F7>", ":DapPause<CR>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<F8>", ":DapStop<CR>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<F9>", ":DapToggleBreakpoint<CR>", { noremap = true })
 
 -- https://github.com/datreeio/CRDs-catalog/tree/main
 -- https://www.arthurkoziel.com/json-schemas-in-neovim/
