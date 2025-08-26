@@ -13,6 +13,7 @@ Plug('preservim/nerdtree')
 Plug('sindrets/diffview.nvim')
 Plug('akinsho/git-conflict.nvim')
 Plug('lewis6991/gitsigns.nvim')
+Plug('isakbm/gitgraph.nvim')
 
 Plug('tpope/vim-fugitive')
 Plug('windwp/nvim-autopairs')
@@ -101,6 +102,48 @@ require('gitsigns').setup {
 	end,
   current_line_blame = true,
 }
+require('gitgraph').setup({
+  hooks = {
+    on_select_commit = function (commit)
+      vim.notify("DiffviewOpen " .. commit.hash .. "^!")
+      vim.cmd(":DiffviewOpen " .. commit.hash .. "^!")
+    end,
+    on_select_range_commit = function (from, to)
+      vim.notify("DiffviewOpen " .. from.hash .. "~1.." .. to.hash)
+      vim.cmd(":DiffviewOpen " .. from.hash .. "~1.." .. to.hash)
+    end
+  },
+  symbols = {
+    merge_commit = '',
+    commit = '',
+    merge_commit_end = '',
+    commit_end = '',
+
+    -- Advanced symbols
+    GVER = '',
+    GHOR = '',
+    GCLD = '',
+    GCRD = '╭',
+    GCLU = '',
+    GCRU = '',
+    GLRU = '',
+    GLRD = '',
+    GLUD = '',
+    GRUD = '',
+    GFORKU = '',
+    GFORKD = '',
+    GRUDCD = '',
+    GRUDCU = '',
+    GLUDCD = '',
+    GLUDCU = '',
+    GLRDCL = '',
+    GLRDCR = '',
+    GLRUCL = '',
+    GLRUCR = '',
+  },
+})
+vim.api.nvim_set_keymap("n", "<leader>gl", ":lua require('gitgraph').draw({}, { all = true, max_count = 5000 })<CR>", { noremap = true })
+
 require('nvim-autopairs').setup()
 local treesitter = require('nvim-treesitter.configs')
 treesitter.setup({
