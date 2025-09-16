@@ -147,7 +147,18 @@ require('gitgraph').setup({
     GLRUCR = '',
   },
 })
-vim.api.nvim_set_keymap("n", "<leader>gl", ":lua require('gitgraph').draw({}, { all = true, max_count = 5000 })<CR>", { noremap = true })
+local function floating_git_graph()
+  local buf = vim.api.nvim_create_buf(false, true)
+  local width = vim.fn.winwidth(0) - 10
+  local height = vim.fn.winheight(0) - 10
+  vim.api.nvim_open_win(buf, true, { relative="win", width=width, height=height, bufpos={5,5}, border="rounded" })
+
+  require('gitgraph').draw({}, { all = true, max_count = 5000 })
+
+  local graphbuf = require('gitgraph.draw').buf
+  vim.api.nvim_buf_set_keymap(graphbuf, 'n', '<ESC>', ':q<CR>', { noremap = true, silent = true, nowait = true })
+end
+vim.keymap.set("n", "<leader>gl", floating_git_graph, { noremap = true })
 
 require('nvim-autopairs').setup()
 local treesitter = require('nvim-treesitter.configs')
