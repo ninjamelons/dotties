@@ -96,9 +96,15 @@ vim.opt.expandtab = true
 vim.opt.shiftwidth = 2
 vim.opt.tabstop = 2
 
-vim.api.nvim_set_keymap('n', '<leader>dfo', ':DiffviewOpen<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>dfc', ':DiffviewClose<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>dff', ':DiffviewFileHistory<CR>', { noremap = true })
+vim.api.nvim_create_autocmd("BufEnter", {
+  pattern = { 'diffview://*' },
+  callback = function (ev)
+    vim.api.nvim_buf_set_keymap(ev.buf, 'n', '<ESC>', ':DiffviewClose<CR>', { noremap = true, silent = true, nowait = true })
+  end
+})
+vim.api.nvim_set_keymap('n', '<leader>dfo', ':DiffviewOpen<CR>', { noremap = true, silent = true, nowait = true })
+vim.api.nvim_set_keymap('n', '<leader>dfc', ':DiffviewClose<CR>', { noremap = true, silent = true, nowait = true })
+vim.api.nvim_set_keymap('n', '<leader>dff', ':DiffviewFileHistory<CR>', { noremap = true, silent = true, nowait = true })
 require('git-conflict').setup()
 require('gitsigns').setup {
 	on_attach = function(buf)
