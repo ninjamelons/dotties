@@ -157,12 +157,16 @@ local function floating_git_graph()
   local buf = vim.api.nvim_create_buf(false, true)
   local width = vim.fn.winwidth(0) - 10
   local height = vim.fn.winheight(0) - 10
-  vim.api.nvim_open_win(buf, true, { relative="win", width=width, height=height, bufpos={5,5}, border="rounded" })
+  local win = vim.api.nvim_open_win(buf, true, { relative="win", width=width, height=height, bufpos={5,5}, border="rounded" })
 
   require('gitgraph').draw({}, { all = true, max_count = 5000 })
 
   local graphbuf = require('gitgraph.draw').buf
-  vim.api.nvim_buf_set_keymap(graphbuf, 'n', '<ESC>', ':q<CR>', { noremap = true, silent = true, nowait = true })
+  if type(graphbuf) == "number" then
+    vim.api.nvim_buf_set_keymap(graphbuf, 'n', '<ESC>', ':q<CR>', { noremap = true, silent = true, nowait = true })
+  else
+    vim.api.nvim_win_close(win, true)
+  end
 end
 vim.keymap.set("n", "<leader>gl", floating_git_graph, { noremap = true })
 
