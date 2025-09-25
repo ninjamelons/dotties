@@ -365,14 +365,31 @@ lspconfig.gdscript.setup {}
 -- https://www.reddit.com/r/neovim/comments/13ski66/neovim_configuration_for_godot_4_lsp_as_simple_as/
 local gdport = os.getenv('GDScript_Port') or '6005'
 local gdcmd = vim.lsp.rpc.connect('127.0.0.1', tonumber(gdport))
+local gdserver
 
-vim.lsp.start({
-  name = 'Godot',
-  cmd = function(dispatchers)
-    vim.api.nvim_command('echo serverstart("/tmp/godot.pipe")')
-    return gdcmd(dispatchers)
-  end,
-  root_dir = vim.fs.dirname(vim.fs.find({ 'project.godot', '.git' }, { upward = true })[1]),
+vim.api.nvim_create_autocmd('BufEnter', {
+  pattern = "*.gd",
+  callback = function()
+    if gdserver ~= nil then
+      vim.lsp.start({
+        name = 'Godot',
+        cmd = function(dispatchers)
+          vim.api.nvim_command('echo serverstart("/tmp/godot.pipe")')
+          gdserver = gdcmd(dispatchers)
+          return gdserver
+        end,
+        root_dir = vim.fs.dirname(vim.fs.find({ 'project.godot' }, { upward = true })[1]),
+      })
+    end
+  end
+})
+vim.api.nvim_create_autocmd('BufLeave', {
+  pattern = "*.gd",
+  callback = function()
+    if gdserver ~= nil then
+      gdserver.terminate()
+    end
+  end
 })
 
 local dap = require('dap')
