@@ -433,3 +433,15 @@ vim.lsp.config("fastly_vcl_lsp", {
   capabilities = capabilities,
   filetypes = { 'vcl' }
 })
+vim.lsp.enable({
+  "fastly_vcl_lsp",
+  "helm_ls",
+  "gdscript",
+  "lua_ls",
+  "ts_ls",
+  "pyright",
+  "kotlin_language_server",
+  "java_language_server",
+  "gopls",
+  "r_language_server"
+})
