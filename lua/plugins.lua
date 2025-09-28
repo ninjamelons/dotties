@@ -294,11 +294,12 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-vim.lsp.config("lua_ls", {
+local lspconfig = require("lspconfig")
+lspconfig.lua_ls.setup {
   on_init = function(client)
     if client.workspace_folders then
       local path = client.workspace_folders[1].name
-      if path ~= vim.fn.stdpath('config') and (vim.uv.fs_stat(path..'/.luarc.json') or vim.uv.fs_stat(path..'/.luarc.jsonc')) then
+      if path ~= vim.fn.stdpath('config') and (vim.loop.fs_stat(path..'/.luarc.json') or vim.loop.fs_stat(path..'/.luarc.jsonc')) then
         return
       end
     end
@@ -332,34 +333,34 @@ vim.lsp.config("lua_ls", {
 	},
 	capabilities = capabilities,
   filetypes = { 'lua' }
-})
-vim.lsp.config("ts_ls", {
+}
+lspconfig.ts_ls.setup {
 	capabilities = capabilities,
   filetypes = { 'ts', 'js', 'typescript', 'javascript' }
-})
-vim.lsp.config("pyright", {
+}
+lspconfig.pyright.setup {
 	capabilities = capabilities,
   filetypes = { 'py', 'python' }
-})
-vim.lsp.config("kotlin_language_server", {
+}
+lspconfig.kotlin_language_server.setup {
 	capabilities = capabilities,
   filetypes = { 'kt', 'kotlin' }
-})
-vim.lsp.config("java_language_server", {
+}
+lspconfig.java_language_server.setup {
   capabilities = capabilities,
   filetypes = { 'java' },
   cmd = { '/home/filipo/Repos/java-language-server/dist/lang_server_linux.sh' }
-})
-vim.lsp.config("gopls", {
+}
+lspconfig.gopls.setup {
   capabilities = capabilities,
   filetypes = { 'go', 'golang' }
-})
-vim.lsp.config("r_language_server", {
+}
+lspconfig.r_language_server.setup {
   capabilities = capabilities,
   filetypes = { 'r', 'R', 'rmd' }
-})
+}
 
-vim.lsp.config("gdscript", {})
+lspconfig.gdscript.setup {}
 
 -- https://www.reddit.com/r/neovim/comments/13ski66/neovim_configuration_for_godot_4_lsp_as_simple_as/
 local gdport = os.getenv('GDScript_Port') or '6005'
@@ -414,10 +415,10 @@ vim.api.nvim_set_keymap("n", "<F9>", ":DapToggleBreakpoint<CR>", { noremap = tru
 
 -- https://github.com/datreeio/CRDs-catalog/tree/main
 -- https://www.arthurkoziel.com/json-schemas-in-neovim/
-vim.lsp.config("helm_ls", {
+lspconfig.helm_ls.setup {
   capabilities = capabilities,
   filetypes = { 'yaml', 'yml' }
-})
+}
 
 -- https://www.npmjs.com/package/fastly-vcl-lsp
 -- https://vi.stackexchange.com/questions/42926/how-do-i-add-a-custom-lsp-to-nvim-lspconfig
@@ -429,7 +430,7 @@ require('lspconfig.configs').fastly_vcl_lsp = {
     filetypes = { 'vcl' }
   }
 }
-vim.lsp.config("fastly_vcl_lsp", {
+lspconfig.fastly_vcl_lsp.setup {
   capabilities = capabilities,
   filetypes = { 'vcl' }
-})
+}
