@@ -54,10 +54,10 @@ vim.call('plug#end')
 
 vim.opt.title = true
 vim.api.nvim_create_autocmd({"BufEnter"}, {
-	callback = function()
-		local pwd = vim.fn.getcwd()
-		vim.opt.titlestring = 'nvim - ' .. pwd .. ' - %{expand("%:p:.")}'
-	end
+  callback = function()
+    local pwd = vim.fn.getcwd()
+    vim.opt.titlestring = 'nvim - ' .. pwd .. ' - %{expand("%:p:.")}'
+  end
 })
 
 -- Misc Plugins
@@ -107,10 +107,10 @@ vim.api.nvim_set_keymap('n', '<leader>dfc', ':DiffviewClose<CR>', { noremap = tr
 vim.api.nvim_set_keymap('n', '<leader>dff', ':DiffviewFileHistory<CR>', { noremap = true, silent = true, nowait = true })
 require('git-conflict').setup()
 require('gitsigns').setup {
-	on_attach = function(buf)
-		vim.api.nvim_buf_set_keymap(buf, 'n', ']c', ':Gitsigns next_hunk<CR>', { noremap = true })
-		vim.api.nvim_buf_set_keymap(buf, 'n', '[c', ':Gitsigns prev_hunk<CR>', { noremap = true })
-	end,
+  on_attach = function(buf)
+    vim.api.nvim_buf_set_keymap(buf, 'n', ']c', ':Gitsigns next_hunk<CR>', { noremap = true })
+    vim.api.nvim_buf_set_keymap(buf, 'n', '[c', ':Gitsigns prev_hunk<CR>', { noremap = true })
+  end,
   current_line_blame = true,
 }
 require('gitgraph').setup({
@@ -173,11 +173,11 @@ vim.keymap.set("n", "<leader>gl", floating_git_graph, { noremap = true })
 require('nvim-autopairs').setup()
 local treesitter = require('nvim-treesitter.configs')
 treesitter.setup({
-	-- ensure_installed = 'all',
+  -- ensure_installed = 'all',
   highlight = { enable = true },
-	indent = { enable = false },
+  indent = { enable = false },
   auto_install = true,
-	autotag = { enable = true, enable_close_on_slash = false },
+  autotag = { enable = true, enable_close_on_slash = false },
 })
 
 require("inc_rename").setup()
@@ -218,55 +218,55 @@ vim.api.nvim_set_keymap('n', '<C-.>', ':bn<CR>', { noremap = true })
 -- Intellisense/snippets
 local cmp = require("cmp")
 cmp.setup({
-	snippet = {
-		expand = function(args)
-			require('luasnip').lsp_expand(args.body)
-		end,
-	},
-	window = {
-		-- completion = cmp.config.window.bordered(),
-		-- documentation = cmp.config.window.bordered(),
-	},
-	mapping = cmp.mapping.preset.insert({
-		['<C-b>'] = cmp.mapping.scroll_docs(-4),
-		['<C-f>'] = cmp.mapping.scroll_docs(4),
-		['<C-Space>'] = cmp.mapping.complete(),
-		['<C-e>'] = cmp.mapping.abort(),
-		['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-	}),
-	sources = cmp.config.sources({
-		{ name = 'nvim_lsp' },
-		{ name = 'luasnip' },
-	}, {
-		{ name = 'buffer' },
-	})
+  snippet = {
+    expand = function(args)
+      require('luasnip').lsp_expand(args.body)
+    end,
+  },
+  window = {
+    -- completion = cmp.config.window.bordered(),
+    -- documentation = cmp.config.window.bordered(),
+  },
+  mapping = cmp.mapping.preset.insert({
+    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.abort(),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+  }),
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+    { name = 'luasnip' },
+  }, {
+    { name = 'buffer' },
+  })
 })
 
 -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline({ '/', '?' }, {
-	mapping = cmp.mapping.preset.cmdline(),
-	sources = {
-		{ name = 'buffer' }
-	}
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = {
+    { name = 'buffer' }
+  }
 })
 
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(':', {
-	mapping = cmp.mapping.preset.cmdline(),
-	sources = cmp.config.sources({
-		{ name = 'path' }
-	}, {
-		{ name = 'cmdline' }
-	}),
-	matching = { disallow_symbol_nonprefix_matching = false }
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = cmp.config.sources({
+    { name = 'path' }
+  }, {
+    { name = 'cmdline' }
+  }),
+  matching = { disallow_symbol_nonprefix_matching = false }
 })
 
 -- LSP config
 vim.api.nvim_create_autocmd("LspAttach", {
-	callback = function(args)
-		vim.api.nvim_buf_set_keymap(args.buf, 'n', ']g', ':lua vim.diagnostic.goto_next()<CR>', { noremap = true })
-		vim.api.nvim_buf_set_keymap(args.buf, 'n', '[g', ':lua vim.diagnostic.goto_prev()<CR>', { noremap = true })
-		vim.api.nvim_buf_set_keymap(args.buf, 'n', '<C-å>', ':lua vim.lsp.buf.code_action()<CR>', { noremap = true })
+  callback = function(args)
+    vim.api.nvim_buf_set_keymap(args.buf, 'n', ']g', ':lua vim.diagnostic.goto_next()<CR>', { noremap = true })
+    vim.api.nvim_buf_set_keymap(args.buf, 'n', '[g', ':lua vim.diagnostic.goto_prev()<CR>', { noremap = true })
+    vim.api.nvim_buf_set_keymap(args.buf, 'n', '<C-å>', ':lua vim.lsp.buf.code_action()<CR>', { noremap = true })
     vim.api.nvim_buf_set_keymap(args.buf, 'n', 'å', ':lua vim.lsp.buf.hover()<CR>', { noremap = true })
     vim.api.nvim_buf_set_keymap(args.buf, 'n', 'gl', ':lua vim.diagnostic.open_float()<CR>', { noremap = true })
 
@@ -278,7 +278,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
       })
     end
     vim.keymap.set('n', '<leader>qf', quickfix, { noremap=true, silent=true })
-	end
+  end
 })
 
 require("go").setup()
@@ -286,8 +286,8 @@ local format_sync_grp = vim.api.nvim_create_augroup("GoFormat", {})
 vim.api.nvim_create_autocmd("BufWritePre", {
   pattern = "*.go",
   callback = function()
-   require('go.format').gofmt()
-   require('go.format').goimports()
+    require('go.format').gofmt()
+    require('go.format').goimports()
   end,
   group = format_sync_grp,
 })
@@ -323,26 +323,26 @@ vim.lsp.config("lua_ls", {
       }
     })
   end,
-	settings = {
-		Lua = {
-			diagnostics = {
-				globals = { 'vim' }
-			}
-		}
-	},
-	capabilities = capabilities,
+  settings = {
+    Lua = {
+      diagnostics = {
+        globals = { 'vim' }
+      }
+    }
+  },
+  capabilities = capabilities,
   filetypes = { 'lua' }
 })
 vim.lsp.config("ts_ls", {
-	capabilities = capabilities,
+  capabilities = capabilities,
   filetypes = { 'ts', 'js', 'typescript', 'javascript' }
 })
 vim.lsp.config("pyright", {
-	capabilities = capabilities,
+  capabilities = capabilities,
   filetypes = { 'py', 'python' }
 })
 vim.lsp.config("kotlin_language_server", {
-	capabilities = capabilities,
+  capabilities = capabilities,
   filetypes = { 'kt', 'kotlin' }
 })
 vim.lsp.config("java_language_server", {
@@ -360,6 +360,7 @@ vim.lsp.config("r_language_server", {
 })
 
 vim.lsp.config("gdscript", {})
+vim.lsp.config("gdshader_lsp", {})
 
 -- https://www.reddit.com/r/neovim/comments/13ski66/neovim_configuration_for_godot_4_lsp_as_simple_as/
 local gdport = os.getenv('GDScript_Port') or '6005'
@@ -429,6 +430,7 @@ vim.lsp.enable({
   "fastly_vcl_lsp",
   "helm_ls",
   "gdscript",
+  "gdshader_lsp",
   "lua_ls",
   "ts_ls",
   "pyright",
