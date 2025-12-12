@@ -337,6 +337,10 @@ vim.lsp.config("ts_ls", {
   capabilities = capabilities,
   filetypes = { 'ts', 'js', 'typescript', 'javascript' }
 })
+vim.lsp.config("svelte", {
+  capabilities = capabilities,
+  filetypes = { 'svelte', "server.ts" }
+})
 vim.lsp.config("pyright", {
   capabilities = capabilities,
   filetypes = { 'py', 'python' }
