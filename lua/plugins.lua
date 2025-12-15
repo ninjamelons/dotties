@@ -17,7 +17,7 @@ Plug('isakbm/gitgraph.nvim')
 
 Plug('tpope/vim-fugitive')
 Plug('windwp/nvim-autopairs')
-Plug('nvim-treesitter/nvim-treesitter')
+Plug('nvim-treesitter/nvim-treesitter', { branch = "master" })
 Plug('mg979/vim-visual-multi', { branch = "master" })
 Plug('smjonas/inc-rename.nvim')
 
