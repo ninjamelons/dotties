@@ -407,6 +407,7 @@ vim.api.nvim_set_keymap("n", "<F9>", ":DapToggleBreakpoint<CR>", { noremap = tru
 vim.api.nvim_set_keymap("n", "<F10>", ":DapStepOver<CR>", { noremap = true })
 vim.api.nvim_set_keymap("n", "<F11>", ":DapStepInto<CR>", { noremap = true })
 vim.api.nvim_set_keymap("n", "<F12>", ":DapContinue<CR>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<F2>", ":lua require'dap'.repl.open()<CR><C-w>j", { noremap = true })
 
 -- https://github.com/datreeio/CRDs-catalog/tree/main
 -- https://www.arthurkoziel.com/json-schemas-in-neovim/
