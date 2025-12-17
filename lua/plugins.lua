@@ -17,7 +17,7 @@ Plug('isakbm/gitgraph.nvim')
 
 Plug('tpope/vim-fugitive')
 Plug('windwp/nvim-autopairs')
-Plug('nvim-treesitter/nvim-treesitter')
+Plug('nvim-treesitter/nvim-treesitter', { branch = "master" })
 Plug('mg979/vim-visual-multi', { branch = "master" })
 Plug('smjonas/inc-rename.nvim')
 
@@ -336,6 +336,10 @@ vim.lsp.config("lua_ls", {
 vim.lsp.config("ts_ls", {
   capabilities = capabilities,
   filetypes = { 'ts', 'js', 'typescript', 'javascript' }
+})
+vim.lsp.config("svelte", {
+  capabilities = capabilities,
+  filetypes = { 'svelte', "server.ts" }
 })
 vim.lsp.config("pyright", {
   capabilities = capabilities,
