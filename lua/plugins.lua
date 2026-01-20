@@ -10,6 +10,8 @@ Plug('topaxi/pipeline.nvim')
 Plug('lukas-reineke/indent-blankline.nvim')
 Plug('preservim/nerdtree')
 
+Plug('OXY2DEV/markview.nvim')
+
 Plug('sindrets/diffview.nvim')
 Plug('akinsho/git-conflict.nvim')
 Plug('lewis6991/gitsigns.nvim')

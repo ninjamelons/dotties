@@ -25,3 +25,9 @@ set cot+=preview
 
 lua require('plugins')
 
+" Search and replace in current folder
+xnoremap <Leader>S
+  \ "sy\|
+  \ :silent grep <C-r>s<CR>
+  \ :cfdo %s/<C-r>s//gc \| update
+  \ <Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
