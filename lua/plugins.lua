@@ -105,7 +105,6 @@ vim.api.nvim_create_autocmd("BufEnter", {
   end
 })
 vim.api.nvim_set_keymap('n', '<leader>dfo', ':DiffviewOpen<CR>', { noremap = true, silent = true, nowait = true })
-vim.api.nvim_set_keymap('n', '<leader>dfc', ':DiffviewClose<CR>', { noremap = true, silent = true, nowait = true })
 vim.api.nvim_set_keymap('n', '<leader>dff', ':DiffviewFileHistory<CR>', { noremap = true, silent = true, nowait = true })
 require('git-conflict').setup()
 require('gitsigns').setup {

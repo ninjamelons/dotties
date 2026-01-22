@@ -31,3 +31,7 @@ xnoremap <Leader>S
   \ :silent grep <C-r>s<CR>
   \ :cfdo %s/<C-r>s//gc \| update
   \ <Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
+
+" Nearby search and replace
+nnoremap <Leader>s :%s/<C-r><C-w>//c<Left><Left>
+xnoremap <Leader>s "sy:%s/<C-r>s//c<Left><Left>
