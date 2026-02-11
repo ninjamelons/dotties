@@ -367,6 +367,8 @@ vim.lsp.config("r_language_server", {
 vim.lsp.config("gdscript", {})
 vim.lsp.config("gdshader_lsp", {})
 
+require("unity")
+
 -- https://www.reddit.com/r/neovim/comments/13ski66/neovim_configuration_for_godot_4_lsp_as_simple_as/
 local gdport = os.getenv('GDScript_Port') or '6005'
 local gdcmd = vim.lsp.rpc.connect('127.0.0.1', tonumber(gdport))
