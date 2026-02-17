@@ -8,6 +8,10 @@ export ZSH="$HOME/.oh-my-zsh"
 
 alias cls='printf "\033c"'
 
+gitprune () {
+  git fetch -p && git branch -vv | awk '/: gone]/{print $1}' | xargs git branch -D 
+}
+
 ZSH_THEME="alanpeabody"
 
 plugins=(
