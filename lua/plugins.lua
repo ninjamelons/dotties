@@ -192,6 +192,8 @@ end
 vim.api.nvim_set_keymap("n", "<leader>rn", ":IncRename ", { noremap = true })
 vim.api.nvim_set_keymap("n", "<leader>t", ":tabnew | terminal<CR> | :startinsert<CR>", { noremap = true })
 vim.api.nvim_set_keymap("t", "<C-\\>l", "<C-\\><C-n> :q <CR>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<C-w><C-l>", ":tabnext<CR>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<C-w><C-h>", ":tabprevious<CR>", { noremap = true })
 
 -- FzfLua keymaps
 vim.api.nvim_set_keymap('n', '<C-p>', ':FzfLua files winopts.fullscreen=true winopts.preview.wrap=true<CR>', { noremap = true })
