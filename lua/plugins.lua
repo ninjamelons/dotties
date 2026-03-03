@@ -16,6 +16,8 @@ Plug('sindrets/diffview.nvim')
 Plug('akinsho/git-conflict.nvim')
 Plug('lewis6991/gitsigns.nvim')
 Plug('isakbm/gitgraph.nvim')
+Plug('natecraddock/workspaces.nvim')
+Plug('natecraddock/sessions.nvim')
 
 Plug('tpope/vim-fugitive')
 Plug('windwp/nvim-autopairs')
@@ -182,6 +184,8 @@ treesitter.setup({
 })
 
 require("inc_rename").setup()
+
+require("fzf_workspaces")
 
 -- Keymaps
 vim.api.nvim_set_keymap('n', '<C-ø>', '', { noremap = true, callback = function ()
