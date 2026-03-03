@@ -14,11 +14,19 @@ lua_workspaces.setup({
   }
 })
 
-vim.api.nvim_create_autocmd("VimEnter", {
+vim.api.nvim_create_autocmd({ "BufAdd", "BufDelete" }, {
   callback = function(args)
     if args.file ~= "" then
       vim.cmd("SessionsSave")
+    end
+  end
+})
+
+vim.api.nvim_create_autocmd("VimEnter", {
+  callback = function(args)
+    if args.file ~= "" then
       vim.cmd(":silent %bdelete!")
+      vim.cmd("SessionsLoad")
     end
   end
 })
