@@ -7,8 +7,10 @@ local lua_workspaces = require("workspaces");
 lua_workspaces.setup({
   auto_open = true,
   hooks = {
-    open = {
+    open_pre = {
       "silent %bdelete!",
+    },
+    open = {
       "SessionsLoad",
     },
   }
@@ -25,7 +27,6 @@ vim.api.nvim_create_autocmd({ "BufAdd", "BufDelete" }, {
 vim.api.nvim_create_autocmd("VimEnter", {
   callback = function(args)
     if args.file ~= "" then
-      vim.cmd(":silent %bdelete!")
       vim.cmd("SessionsLoad")
     end
   end
