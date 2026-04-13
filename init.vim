@@ -25,6 +25,8 @@ set cot+=preview
 
 lua require('plugins')
 
+set nomodeline
+
 " Search and replace in current folder
 xnoremap <Leader>S
   \ "sy\|
