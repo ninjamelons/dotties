@@ -386,6 +386,10 @@ vim.lsp.config("r_language_server", {
   capabilities = capabilities,
   filetypes = { 'r', 'R', 'rmd' }
 })
+vim.lsp.config("terraform-ls", {
+  capabilities = capabilities,
+  filetypes = { 'terraform', 'tf', 'terraform-vars'}
+})
 
 vim.lsp.config("gdscript", {})
 vim.lsp.config("gdshader_lsp", {})

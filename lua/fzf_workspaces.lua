@@ -24,14 +24,6 @@ vim.api.nvim_create_autocmd({ "BufAdd", "BufDelete" }, {
   end
 })
 
-vim.api.nvim_create_autocmd("VimEnter", {
-  callback = function(args)
-    if args.file ~= "" then
-      vim.cmd("SessionsLoad")
-    end
-  end
-})
-
 local function fzf_workspaces(opts)
   local fzf_lua = require'fzf-lua'
   opts = opts or {}
