@@ -286,6 +286,23 @@ cmp.setup.cmdline(':', {
 })
 
 -- LSP config
+vim.api.nvim_create_autocmd("FileType", {
+  group = vim.api.nvim_create_augroup('trim_whitespaces', { clear = true }),
+  desc = "Trim trailing spaces",
+  pattern = "bash,javascript,typescript",
+  callback = function()
+    vim.api.nvim_create_autocmd('BufWritePre', {
+      pattern = '<buffer>',
+      callback = function()
+        local curpos = vim.api.nvim_win_get_cursor(0)
+        vim.cmd([[keeppatterns %s/\s\+$//e]])
+        vim.api.nvim_win_set_cursor(0, curpos)
+      end,
+    })
+  end,
+  group = format_sync_grp,
+})
+
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(args)
     vim.api.nvim_buf_set_keymap(args.buf, 'n', ']g', ':lua vim.diagnostic.goto_next()<CR>', { noremap = true })
