@@ -12,6 +12,8 @@ Plug('preservim/nerdtree')
 
 Plug('OXY2DEV/markview.nvim')
 
+Plug('let-def/texpresso.vim')
+
 Plug('sindrets/diffview.nvim')
 Plug('akinsho/git-conflict.nvim')
 Plug('lewis6991/gitsigns.nvim')
@@ -86,6 +88,8 @@ require('lualine').setup({
     theme = 'vscode',
   }
 })
+
+require('texpresso')
 
 local iblhooks = require('ibl.hooks')
 require('ibl').setup({
@@ -181,7 +185,7 @@ ts.setup({
   autotag = { enable = true, enable_close_on_slash = false },
 })
 
-local ensure_installed = { "lua", "javascript", "go", "typescript", "yaml", "gotmpl", "helm", "r" }
+local ensure_installed = { "lua", "javascript", "go", "typescript", "yaml", "gotmpl", "helm", "r" , "gdscript" }
 local already_installed = ts.get_installed()
 
 local to_install = vim
