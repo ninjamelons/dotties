@@ -21,6 +21,7 @@ Plug('isakbm/gitgraph.nvim')
 Plug('natecraddock/workspaces.nvim')
 Plug('natecraddock/sessions.nvim')
 
+Plug('RRethy/vim-illuminate')
 Plug('tpope/vim-fugitive')
 Plug('windwp/nvim-autopairs')
 Plug('nvim-treesitter/nvim-treesitter', { branch = "main" })
@@ -89,7 +90,7 @@ require('lualine').setup({
   }
 })
 
-require('texpresso')
+require("illuminate")
 
 local iblhooks = require('ibl.hooks')
 require('ibl').setup({
