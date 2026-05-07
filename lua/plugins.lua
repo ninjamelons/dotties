@@ -209,6 +209,36 @@ require("inc_rename").setup()
 
 require("fzf_workspaces")
 
+local id = nil
+vim.api.nvim_create_user_command("PlantUML",
+  function(opts)
+    if id == nil then
+      id = vim.api.nvim_create_autocmd("BufWritePost", {
+        pattern = '*',
+        callback = function()
+          local filepath = vim.fn.expand("%")
+
+          local filedesc = {}
+          local idx = 0
+          for str in string.gmatch(filepath, "[^\\.]+") do
+            filedesc[idx] = str
+            idx = idx + 1
+          end
+
+          if filedesc[1] ~= "puml" then
+            return
+          end
+
+          vim.system({ "plantuml", filepath })
+          vim.system({ "eog", filedesc[0] .. ".png" })
+        end,
+      })
+    else
+      vim.api.nvim_del_autocmd(id)
+    end
+  end,
+  { })
+
 -- Keymaps
 vim.api.nvim_set_keymap('n', '<C-ø>', '', { noremap = true, callback = function ()
   vim.cmd("silent !kitty &")
