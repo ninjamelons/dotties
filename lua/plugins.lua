@@ -218,19 +218,12 @@ vim.api.nvim_create_user_command("PlantUML",
         callback = function()
           local filepath = vim.fn.expand("%")
 
-          local filedesc = {}
-          local idx = 0
-          for str in string.gmatch(filepath, "[^\\.]+") do
-            filedesc[idx] = str
-            idx = idx + 1
-          end
-
-          if filedesc[1] ~= "puml" then
+          if string.sub(filepath, -5) ~= ".puml" then
             return
           end
 
-          vim.system({ "plantuml", filepath })
-          vim.system({ "eog", filedesc[0] .. ".png" })
+          vim.cmd("silent !plantuml " .. filepath)
+          vim.system({ "eog", string.sub(filepath, 0, -6) .. ".png" })
         end,
       })
     else
