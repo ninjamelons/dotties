@@ -50,7 +50,6 @@ Plug('pmizio/typescript-tools.nvim')
 Plug('LuaLS/lua-language-server')
 
 Plug('Saecki/crates.nvim')
-Plug('mrcjkb/rustaceanvim')
 
 Plug('ray-x/go.nvim')
 
@@ -223,7 +222,7 @@ vim.api.nvim_create_user_command("PlantUML",
           end
 
           vim.cmd("silent !plantuml " .. filepath)
-          vim.system({ "eog", string.sub(filepath, 0, -6) .. ".png" })
+          vim.system({ "zsh", "-c", "eog" .. string.sub(filepath, 0, -6) .. ".png" })
         end,
       })
     else
