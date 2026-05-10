@@ -12,7 +12,7 @@ Plug('preservim/nerdtree')
 
 Plug('OXY2DEV/markview.nvim')
 
-Plug('let-def/texpresso.vim')
+Plug('lervag/vimtex')
 
 Plug('sindrets/diffview.nvim')
 Plug('akinsho/git-conflict.nvim')
@@ -88,8 +88,6 @@ require('lualine').setup({
     theme = 'vscode',
   }
 })
-
-require('texpresso')
 
 local iblhooks = require('ibl.hooks')
 require('ibl').setup({
