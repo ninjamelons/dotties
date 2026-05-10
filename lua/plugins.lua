@@ -222,7 +222,10 @@ vim.api.nvim_create_user_command("PlantUML",
           end
 
           vim.cmd("silent !plantuml " .. filepath)
-          vim.system({ "zsh", "-c", "eog " .. string.sub(filepath, 0, -6) .. ".png" })
+          local pgrep = vim.system({ "pgrep", "eog" }):wait()
+          if pgrep.stdout == "" then
+            vim.system({ "zsh", "-c", "eog " .. string.sub(filepath, 0, -6) .. ".png" })
+          end
         end,
       })
     else
