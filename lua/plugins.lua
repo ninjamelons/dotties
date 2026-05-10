@@ -230,6 +230,7 @@ vim.api.nvim_create_user_command("PlantUML",
       })
     else
       vim.api.nvim_del_autocmd(id)
+      id = nil
     end
   end,
   { })
