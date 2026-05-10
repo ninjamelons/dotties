@@ -21,6 +21,7 @@ Plug('isakbm/gitgraph.nvim')
 Plug('natecraddock/workspaces.nvim')
 Plug('natecraddock/sessions.nvim')
 
+Plug('RRethy/vim-illuminate')
 Plug('tpope/vim-fugitive')
 Plug('windwp/nvim-autopairs')
 Plug('nvim-treesitter/nvim-treesitter', { branch = "main" })
@@ -49,7 +50,6 @@ Plug('pmizio/typescript-tools.nvim')
 Plug('LuaLS/lua-language-server')
 
 Plug('Saecki/crates.nvim')
-Plug('mrcjkb/rustaceanvim')
 
 Plug('ray-x/go.nvim')
 
@@ -88,6 +88,8 @@ require('lualine').setup({
     theme = 'vscode',
   }
 })
+
+require("illuminate")
 
 local iblhooks = require('ibl.hooks')
 require('ibl').setup({
@@ -205,6 +207,29 @@ vim.api.nvim_create_autocmd("FileType", {
 require("inc_rename").setup()
 
 require("fzf_workspaces")
+
+local id = nil
+vim.api.nvim_create_user_command("PlantUML",
+  function(opts)
+    if id == nil then
+      id = vim.api.nvim_create_autocmd("BufWritePost", {
+        pattern = '*',
+        callback = function()
+          local filepath = vim.fn.expand("%")
+
+          if string.sub(filepath, -5) ~= ".puml" then
+            return
+          end
+
+          vim.cmd("silent !plantuml " .. filepath)
+          vim.system({ "zsh", "-c", "eog" .. string.sub(filepath, 0, -6) .. ".png" })
+        end,
+      })
+    else
+      vim.api.nvim_del_autocmd(id)
+    end
+  end,
+  { })
 
 -- Keymaps
 vim.api.nvim_set_keymap('n', '<C-ø>', '', { noremap = true, callback = function ()
