@@ -26,6 +26,7 @@ set cot+=preview
 lua require('plugins')
 
 set nomodeline
+setlocal display=uhex
 
 " Search and replace in current folder
 xnoremap <Leader>S
