@@ -424,7 +424,7 @@ vim.lsp.config("kotlin_language_server", {
 vim.lsp.config("java_language_server", {
   capabilities = capabilities,
   filetypes = { 'java' },
-  cmd = { '/home/filipo/Repos/java-language-server/dist/lang_server_linux.sh' }
+  cmd = { vim.fn.expand('~') .. '/Repos/java-language-server/dist/lang_server_linux.sh' }
 })
 vim.lsp.config("gopls", {
   capabilities = capabilities,
@@ -447,12 +447,22 @@ require("unity")
 -- https://www.reddit.com/r/neovim/comments/13ski66/neovim_configuration_for_godot_4_lsp_as_simple_as/
 local gdport = os.getenv('GDScript_Port') or '6005'
 local gdcmd = vim.lsp.rpc.connect('127.0.0.1', tonumber(gdport))
-vim.api.nvim_command('silent! \'echo serverstart("/tmp/godot.pipe")\'')
 local gdserver
+
+vim.api.nvim_create_autocmd('VimEnter', {
+  callback = function()
+    local isgodotdir = vim.fs.dirname(vim.fs.find({ 'project.godot' }, { upward = true })[1])
+    local isrunning = vim.fs.find({ "godot.pipe" }, { path = "/tmp/", type = "socket" })[1]
+    if isgodotdir ~= nil and isrunning == nil then
+      vim.api.nvim_command('echo serverstart("/tmp/godot.pipe")')
+    end
+  end
+})
 
 vim.api.nvim_create_autocmd('BufEnter', {
   pattern = "*.gd",
   callback = function()
+    -- TODO - figure out why it stops working when godot closes and opens
     if gdserver ~= nil then
       vim.lsp.start({
         name = 'Godot',
