@@ -534,9 +534,23 @@ require("dap-godot-mono").setup({
   }
 })
 
-vim.api.nvim_set_keymap("n", "<F5>", ":lua require('dapui').open()<CR> <BAR> :DapNew<CR>", { noremap = true })
+local dap, dapui = require("dap"), require("dapui")
+dap.listeners.before.attach.dapui_config = function()
+  dapui.open()
+end
+dap.listeners.before.launch.dapui_config = function()
+  dapui.open()
+end
+dap.listeners.before.event_terminated.dapui_config = function()
+  dapui.close()
+end
+dap.listeners.before.event_exited.dapui_config = function()
+  dapui.close()
+end
+
+vim.api.nvim_set_keymap("n", "<F5>", ":DapNew<CR>", { noremap = true })
 vim.api.nvim_set_keymap("n", "<F7>", ":DapPause<CR>", { noremap = true })
-vim.api.nvim_set_keymap("n", "<F8>", ":lua require('dapui').close()<CR> <BAR> :DapStop<CR>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<F8>", ":DapStop<CR>", { noremap = true })
 vim.api.nvim_set_keymap("n", "<F9>", ":DapToggleBreakpoint<CR>", { noremap = true })
 vim.api.nvim_set_keymap("n", "<F10>", ":DapStepOver<CR>", { noremap = true })
 vim.api.nvim_set_keymap("n", "<F11>", ":DapStepInto<CR>", { noremap = true })
