@@ -40,6 +40,11 @@ Plug('hrsh7th/cmp-cmdline')
 Plug('hrsh7th/nvim-cmp')
 
 Plug('mfussenegger/nvim-dap')
+Plug('nvim-neotest/nvim-nio')
+Plug('rcarriga/nvim-dap-ui')
+Plug('stevearc/overseer.nvim')
+Plug('fm39hz/nvim-dap-godot-mono')
+Plug('theHamsta/nvim-dap-virtual-text')
 
 Plug('L3MON4D3/LuaSnip')
 Plug('saadparwaiz1/cmp_luasnip')
@@ -88,6 +93,8 @@ require('lualine').setup({
     theme = 'vscode',
   }
 })
+
+require("dapui").setup()
 
 require("illuminate")
 
@@ -439,10 +446,39 @@ vim.lsp.config("terraform-ls", {
   filetypes = { 'terraform', 'tf', 'terraform-vars'}
 })
 
+vim.lsp.config("roslyn_ls", {
+  capabilities = capabilities,
+  filetypes = { 'cs', 'csharp' },
+  settings = {
+    ['csharp|inlay_hints'] = {
+      csharp_enable_inlay_hints_for_implicit_object_creation = false,
+      csharp_enable_inlay_hints_for_implicit_variable_types = false,
+      csharp_enable_inlay_hints_for_lambda_parameter_types = false,
+      csharp_enable_inlay_hints_for_types = false,
+      dotnet_enable_inlay_hints_for_indexer_parameters = false,
+      dotnet_enable_inlay_hints_for_literal_parameters = false,
+      dotnet_enable_inlay_hints_for_object_creation_parameters = false,
+      dotnet_enable_inlay_hints_for_other_parameters = false,
+      dotnet_enable_inlay_hints_for_parameters = false,
+    }
+  }
+})
+vim.api.nvim_create_autocmd("BufWritePost", {
+  pattern = "*.cs",
+  callback = function (args)
+    local root_dir = vim.fs.dirname(vim.fs.find({ 'project.godot' }, { upward = true })[1])
+
+    if root_dir then
+      vim.cmd("silent !dotnet build &")
+    end
+  end
+})
+
 vim.lsp.config("gdscript", {})
 vim.lsp.config("gdshader_lsp", {})
 
-require("unity")
+-- TODO - Maybe remove, maybe conditionally load another way
+--require("unity")
 
 -- https://www.reddit.com/r/neovim/comments/13ski66/neovim_configuration_for_godot_4_lsp_as_simple_as/
 local gdport = os.getenv('GDScript_Port') or '6005'
@@ -472,7 +508,6 @@ dap.adapters.godot = {
   host = '127.0.0.1',
   port = 6006,
 }
-
 dap.configurations.gdscript = {
   {
     type = 'godot',
@@ -482,9 +517,16 @@ dap.configurations.gdscript = {
     launch_scene = true,
   },
 }
-vim.api.nvim_set_keymap("n", "<F5>", ":DapNew<CR>", { noremap = true })
+require("nvim-dap-virtual-text").setup()
+require("dap-godot-mono").setup({
+  godot = {
+    godot_executable = "godot-mono",
+  }
+})
+
+vim.api.nvim_set_keymap("n", "<F5>", ":lua require('dapui').open()<CR> <BAR> :DapNew<CR>", { noremap = true })
 vim.api.nvim_set_keymap("n", "<F7>", ":DapPause<CR>", { noremap = true })
-vim.api.nvim_set_keymap("n", "<F8>", ":DapStop<CR>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<F8>", ":lua require('dapui').close()<CR> <BAR> :DapStop<CR>", { noremap = true })
 vim.api.nvim_set_keymap("n", "<F9>", ":DapToggleBreakpoint<CR>", { noremap = true })
 vim.api.nvim_set_keymap("n", "<F10>", ":DapStepOver<CR>", { noremap = true })
 vim.api.nvim_set_keymap("n", "<F11>", ":DapStepInto<CR>", { noremap = true })
@@ -523,5 +565,7 @@ vim.lsp.enable({
   "kotlin_language_server",
   "java_language_server",
   "gopls",
-  "r_language_server"
+  "r_language_server",
+  "roslyn_ls",
+  "roslyn"
 })
