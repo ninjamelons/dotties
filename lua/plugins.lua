@@ -10,6 +10,8 @@ Plug('topaxi/pipeline.nvim')
 Plug('lukas-reineke/indent-blankline.nvim')
 Plug('preservim/nerdtree')
 
+Plug('krissen/output-panel.nvim')
+
 Plug('OXY2DEV/markview.nvim')
 
 Plug('lervag/vimtex')
@@ -95,6 +97,15 @@ require('lualine').setup({
 })
 
 require("dapui").setup()
+
+require("output-panel").setup({
+  auto_open = {
+    enabled = true
+  },
+  notifications = {
+    enabled = false,
+  }
+})
 
 require("illuminate")
 
@@ -469,7 +480,9 @@ vim.api.nvim_create_autocmd("BufWritePost", {
     local root_dir = vim.fs.dirname(vim.fs.find({ 'project.godot' }, { upward = true })[1])
 
     if root_dir then
-      vim.cmd("silent !dotnet build &")
+      require("output-panel").run({
+        cmd = { "dotnet", "build" }
+      })
     end
   end
 })
