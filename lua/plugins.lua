@@ -568,7 +568,7 @@ dap.configurations.gdscript = {
 require("nvim-dap-virtual-text").setup()
 require("dap-godot-mono").setup({
   godot = {
-    godot_executable = "godot-mono",
+    godot_executable = "/usr/bin/godot-mono",
   }
 })
 
