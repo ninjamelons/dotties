@@ -497,7 +497,7 @@ vim.lsp.config("roslyn_ls", {
       dotnet_enable_inlay_hints_for_other_parameters = false,
       dotnet_enable_inlay_hints_for_parameters = false,
     }
-  }
+  },
 })
 vim.api.nvim_create_autocmd("BufWritePost", {
   pattern = "*.cs",
@@ -511,6 +511,7 @@ vim.api.nvim_create_autocmd("BufWritePost", {
     end
   end
 })
+vim.api.nvim_set_keymap('n', '<leader>db', ':lua require("output-panel").run({ cmd = { "dotnet", "build" }})<CR>', { noremap = true, silent = true, nowait = true })
 
 vim.lsp.config("gdscript", {})
 vim.lsp.config("gdshader_lsp", {})
