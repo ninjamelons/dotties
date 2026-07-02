@@ -142,6 +142,7 @@ require('ibl').setup({
   }
 })
 iblhooks.register(iblhooks.type.SCOPE_HIGHLIGHT, iblhooks.builtin.scope_highlight_from_extmark)
+vim.opt.autoindent = true
 vim.opt.smartindent = true
 vim.opt.expandtab = true
 vim.opt.shiftwidth = 2
@@ -487,17 +488,23 @@ vim.lsp.config("roslyn_ls", {
   filetypes = { 'cs', 'csharp' },
   settings = {
     ['csharp|inlay_hints'] = {
-      csharp_enable_inlay_hints_for_implicit_object_creation = false,
-      csharp_enable_inlay_hints_for_implicit_variable_types = false,
-      csharp_enable_inlay_hints_for_lambda_parameter_types = false,
+      csharp_enable_inlay_hints_for_implicit_object_creation = true,
+      csharp_enable_inlay_hints_for_implicit_variable_types = true,
+      csharp_enable_inlay_hints_for_lambda_parameter_types = true,
       csharp_enable_inlay_hints_for_types = false,
       dotnet_enable_inlay_hints_for_indexer_parameters = false,
       dotnet_enable_inlay_hints_for_literal_parameters = false,
-      dotnet_enable_inlay_hints_for_object_creation_parameters = false,
+      dotnet_enable_inlay_hints_for_object_creation_parameters = true,
       dotnet_enable_inlay_hints_for_other_parameters = false,
       dotnet_enable_inlay_hints_for_parameters = false,
-    }
+    },
   },
+})
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*.cs",
+  callback = function()
+    vim.lsp.buf.format({ async = false })
+  end,
 })
 vim.api.nvim_create_autocmd("BufWritePost", {
   pattern = "*.cs",
