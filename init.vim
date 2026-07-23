@@ -21,6 +21,8 @@ set background=dark
 set omnifunc=syntaxcomplete#Complete
 set cot+=preview
 
+set winborder=rounded
+
 " colorscheme desert
 
 lua require('plugins')
