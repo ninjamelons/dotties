@@ -507,18 +507,18 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     vim.lsp.buf.format({ async = false })
   end,
 })
-vim.api.nvim_create_autocmd("BufWritePost", {
-  pattern = "*.cs",
-  callback = function (args)
-    local root_dir = vim.fs.dirname(vim.fs.find({ 'project.godot' }, { upward = true })[1])
-
-    if root_dir then
-      require("output-panel").run({
-        cmd = { "dotnet", "build" }
-      })
-    end
-  end
-})
+--vim.api.nvim_create_autocmd("BufWritePost", {
+--  pattern = "*.cs",
+--  callback = function (args)
+--    local root_dir = vim.fs.dirname(vim.fs.find({ 'project.godot' }, { upward = true })[1])
+--
+--    if root_dir then
+--      require("output-panel").run({
+--        cmd = { "dotnet", "build" }
+--      })
+--    end
+--  end
+--})
 vim.api.nvim_set_keymap('n', '<leader>db', ':lua require("output-panel").run({ cmd = { "dotnet", "build" }})<CR>', { noremap = true, silent = true, nowait = true })
 
 vim.lsp.config("gdscript", {})
