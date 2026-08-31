@@ -63,6 +63,8 @@ Plug('ray-x/go.nvim')
 Plug('varnishcache-friends/vim-varnish')
 Plug('towolf/vim-helm', { ft = 'helm' })
 
+Plug('CopilotC-Nvim/CopilotChat.nvim')
+
 vim.call('plug#end')
 
 vim.opt.title = true
@@ -74,8 +76,13 @@ vim.api.nvim_create_autocmd({"BufEnter"}, {
 })
 
 -- Misc Plugins
+require('fzf-lua').register_ui_select()
+require("CopilotChat").setup({
+  model = "auto",
+  trusted_tools = nil,
+})
+
 vim.o.background = 'dark'
-local c = require('vscode.colors').get_colors()
 require('vscode').setup({
   underline_links = true,
   terminal_colors = true,
