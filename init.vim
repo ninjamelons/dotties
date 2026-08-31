@@ -40,3 +40,8 @@ xnoremap <Leader>S
 " Nearby search and replace
 nnoremap <Leader>s :%s/<C-r><C-w>//c<Left><Left>
 xnoremap <Leader>s "sy:%s/<C-r>s//c<Left><Left>
+
+" Open current line in github -- Requires `git url` alias in ~/.gitconfig
+" [alias]
+"	  url =! bash -c 'git config --get remote.origin.url | sed -E "s/.+:\\(.+\\)\\.git$/https:\\\\/\\\\/github\\\\.com\\\\/\\\\1/g"'
+nnoremap <leader>o :!echo `git url`/blob/`git rev-parse --abbrev-ref HEAD`/%\#L<C-R>=line('.')<CR> \| xargs xdg-open<CR><CR>
