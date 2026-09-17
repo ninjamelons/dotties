@@ -80,6 +80,11 @@ require('fzf-lua').register_ui_select()
 require("CopilotChat").setup({
   model = "auto",
   trusted_tools = { 'file', 'glob', 'grep', 'gitdiff' },
+  diff = "unified",
+  window = {
+    layout = 'vertical',
+    width = 90,
+  },
 })
 
 vim.o.background = 'dark'
