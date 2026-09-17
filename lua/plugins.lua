@@ -64,6 +64,7 @@ Plug('varnishcache-friends/vim-varnish')
 Plug('towolf/vim-helm', { ft = 'helm' })
 
 Plug('CopilotC-Nvim/CopilotChat.nvim')
+Plug('ravitemer/mcphub.nvim')
 
 vim.call('plug#end')
 
@@ -79,11 +80,28 @@ vim.api.nvim_create_autocmd({"BufEnter"}, {
 require('fzf-lua').register_ui_select()
 require("CopilotChat").setup({
   model = "auto",
-  trusted_tools = { 'file', 'glob', 'grep', 'gitdiff' },
+  trusted_tools = {
+    'file', 'glob', 'grep', 'diff', 'gitdiff',
+    'neovim_Buffer', 'neovim_Diagnostics__Buffer', 'neovim_Diagnostics__Workspace',
+    'neovim_Workspace', 'neovim_delete_items', 'neovim_edit_file',
+    'neovim_find_files', 'neovim_list_directory', 'neovim_move_item',
+    'neovim_read_file', 'neovim_read_multiple_files', 'neovim_write_file',
+    },
   diff = "unified",
   window = {
     layout = 'vertical',
     width = 90,
+  },
+})
+
+require('mcphub').setup({
+  extensions = {
+    copilotchat = {
+      enabled = true,
+      convert_tools_to_functions = true,
+      convert_resources_to_functions = true,
+      add_mcp_prefix = false,
+    }
   },
 })
 
