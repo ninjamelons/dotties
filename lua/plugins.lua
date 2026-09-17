@@ -12,7 +12,7 @@ Plug('preservim/nerdtree')
 
 Plug('krissen/output-panel.nvim')
 
-Plug('OXY2DEV/markview.nvim')
+--Plug('OXY2DEV/markview.nvim')
 
 Plug('lervag/vimtex')
 
@@ -79,7 +79,7 @@ vim.api.nvim_create_autocmd({"BufEnter"}, {
 require('fzf-lua').register_ui_select()
 require("CopilotChat").setup({
   model = "auto",
-  trusted_tools = nil,
+  trusted_tools = { 'file', 'glob', 'grep', 'gitdiff' },
 })
 
 vim.o.background = 'dark'
