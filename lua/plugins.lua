@@ -90,7 +90,7 @@ require("CopilotChat").setup({
   diff = "unified",
   window = {
     layout = 'vertical',
-    width = 90,
+    width = 100,
   },
 })
 
