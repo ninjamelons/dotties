@@ -460,7 +460,9 @@ vim.lsp.config("lua_ls", {
       workspace = {
         checkThirdParty = false,
         library = {
-          vim.env.VIMRUNTIME
+          vim.env.VIMRUNTIME,
+          vim.fn.stdpath("config") .. "/lua",
+          "/usr/share/hypr/stubs/"
           -- Depending on the usage, you might want to add additional paths here.
           -- "${3rd}/luv/library"
           -- "${3rd}/busted/library",
@@ -473,7 +475,7 @@ vim.lsp.config("lua_ls", {
   settings = {
     Lua = {
       diagnostics = {
-        globals = { 'vim' }
+        globals = { 'vim', 'hl' }
       }
     }
   },
