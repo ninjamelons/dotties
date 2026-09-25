@@ -616,7 +616,7 @@ require("dap-godot-mono").setup({
 })
 
 function workspaceEnv()
-  if !vim.fn.filereadable(vim.uv.cwd() .. "/.env") then
+  if vim.fn.filereadable(vim.uv.cwd() .. "/.env") == 0 then
     return {}
   end
 
