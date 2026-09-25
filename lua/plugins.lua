@@ -47,6 +47,8 @@ Plug('rcarriga/nvim-dap-ui')
 Plug('stevearc/overseer.nvim')
 Plug('fm39hz/nvim-dap-godot-mono')
 Plug('theHamsta/nvim-dap-virtual-text')
+Plug('leoluz/nvim-dap-go')
+Plug('ravsii/nvim-dap-envfile')
 
 Plug('L3MON4D3/LuaSnip')
 Plug('saadparwaiz1/cmp_luasnip')
@@ -591,6 +593,8 @@ vim.api.nvim_create_autocmd('BufEnter', {
   end
 })
 
+local envFile = require("nvim-dap-envfile")
+
 local dap = require('dap')
 dap.adapters.godot = {
   type = 'server',
@@ -612,6 +616,26 @@ require("dap-godot-mono").setup({
     godot_executable = "/usr/bin/godot-mono",
   }
 })
+
+function workspaceEnv()
+  if vim.fn.filereadable(vim.uv.cwd() .. "/.env") == 0 then
+    return {}
+  end
+
+  local env = envFile.load_env_file(vim.uv.cwd() .. "/.env")
+  return env
+end
+
+dap.configurations.go = {
+  {
+    type = "go",
+    name = "Debug Package w/ .env",
+    request = "launch",
+    program = "${fileDirname}",
+    env = workspaceEnv(),
+  },
+}
+require("dap-go").setup()
 
 local dap, dapui = require("dap"), require("dapui")
 dap.listeners.before.attach.dapui_config = function()
