@@ -46,15 +46,6 @@ hl.monitor({
 -- See https://wiki.hypr.land/Configuring/Keywords/
 -- Set programs that you use
 
-local terminal = "kitty"
-local fileManager = "dolphin"
-local menu = "hyprlauncher"
---################
---## AUTOSTART ###
---################
-
--- Autostart necessary processes (like notifications daemons, status bars, etc.)
--- Or execute your favorite apps at launch like this:
 
 --############################
 --## ENVIRONMENT VARIABLES ###
@@ -68,37 +59,16 @@ hl.env("GDK_BACKEND", "wayland,x11,*")
 hl.env("SDL_VIDEODRIVER", "wayland")
 hl.env("QT_QPA_PLATFORM", "wayland;xcb")
 
---##################
---## PERMISSIONS ###
---##################
-
--- See https://wiki.hypr.land/Configuring/Permissions/
--- Please note permission changes here require a Hyprland restart and are not applied on-the-fly
--- for security reasons
--- ecosystem {
---   enforce_permissions = 1
--- }
-
--- permission = /usr/(bin|local/bin)/grim, screencopy, allow
--- permission = /usr/(lib|libexec|lib64)/xdg-desktop-portal-hyprland, screencopy, allow
--- permission = /usr/(bin|local/bin)/hyprpm, plugin, allow
-
 --####################
 --## LOOK AND FEEL ###
 --####################
--- TODO: manual review (plugin config)
--- Refer to https://wiki.hypr.land/Configuring/Variables/
--- https://wiki.hypr.land/Configuring/Variables/#general
 
 hl.config({
     general = {
         gaps_in = 0,
         gaps_out = 0,
         border_size = 1,
-        -- https://wiki.hypr.land/Configuring/Variables/#variable-types for info about colors
-        -- Set to true enable resizing windows by clicking and dragging on borders and gaps
         resize_on_border = false,
-        -- Please see https://wiki.hypr.land/Configuring/Tearing/ before you turn this on
         allow_tearing = false,
         col = {
             active_border = { colors = { "rgba(33ccffee)", "rgba(00ff99ee)" }, angle = 45 },
@@ -137,96 +107,31 @@ hl.config({
 hl.config({
     animations = {
         enabled = false,
-        -- Default curves, see https://wiki.hypr.land/Configuring/Animations/#curves
-        --        NAME,           X0,   Y0,   X1,   Y1
-        -- Default animations, see https://wiki.hypr.land/Configuring/Animations/
-        --           NAME,          ONOFF, SPEED, CURVE,        [STYLE]
     },
 })
-hl.curve("easeOutQuint", {
-    type = "bezier",
-    points = { { 0.23, 1 }, { 0.32, 1 } },
-})
-hl.curve("easeInOutCubic", {
-    type = "bezier",
-    points = { { 0.65, 0.05 }, { 0.36, 1 } },
-})
-hl.curve("linear", {
-    type = "bezier",
-    points = { { 0, 0 }, { 1, 1 } },
-})
-hl.curve("almostLinear", {
-    type = "bezier",
-    points = { { 0.5, 0.5 }, { 0.75, 1 } },
-})
-hl.curve("quick", {
-    type = "bezier",
-    points = { { 0.15, 0 }, { 0.1, 1 } },
-})
-hl.animation({ leaf = "global", enabled = true, speed = 10, bezier = "default" })
-hl.animation({ leaf = "border", enabled = true, speed = 5.39, bezier = "easeOutQuint" })
-hl.animation({ leaf = "windows", enabled = true, speed = 4.79, bezier = "easeOutQuint" })
-hl.animation({ leaf = "windowsIn", enabled = true, speed = 4.1, bezier = "easeOutQuint", style = "popin 87%" })
-hl.animation({ leaf = "windowsOut", enabled = true, speed = 1.49, bezier = "linear", style = "popin 87%" })
-hl.animation({ leaf = "fadeIn", enabled = true, speed = 1.73, bezier = "almostLinear" })
-hl.animation({ leaf = "fadeOut", enabled = true, speed = 1.46, bezier = "almostLinear" })
-hl.animation({ leaf = "fade", enabled = true, speed = 3.03, bezier = "quick" })
-hl.animation({ leaf = "layers", enabled = true, speed = 3.81, bezier = "easeOutQuint" })
-hl.animation({ leaf = "layersIn", enabled = true, speed = 4, bezier = "easeOutQuint", style = "fade" })
-hl.animation({ leaf = "layersOut", enabled = true, speed = 1.5, bezier = "linear", style = "fade" })
-hl.animation({ leaf = "fadeLayersIn", enabled = true, speed = 1.79, bezier = "almostLinear" })
-hl.animation({ leaf = "fadeLayersOut", enabled = true, speed = 1.39, bezier = "almostLinear" })
-hl.animation({ leaf = "workspaces", enabled = true, speed = 1.94, bezier = "almostLinear", style = "fade" })
-hl.animation({ leaf = "workspacesIn", enabled = true, speed = 1.21, bezier = "almostLinear", style = "fade" })
-hl.animation({ leaf = "workspacesOut", enabled = true, speed = 1.94, bezier = "almostLinear", style = "fade" })
-hl.animation({ leaf = "zoomFactor", enabled = true, speed = 7, bezier = "quick" })
-
--- Ref https://wiki.hypr.land/Configuring/Workspace-Rules/
--- "Smart gaps" / "No gaps when only"
--- uncomment all if you wish to use that.
--- workspace = w[tv1], gapsout:0, gapsin:0
--- workspace = f[1], gapsout:0, gapsin:0
--- windowrule {
---     name = no-gaps-wtv1
---     match:float = false
---     match:workspace = w[tv1]--
---     border_size = 0
---     rounding = 0
--- }
-
---
-
--- windowrule {
---     name = no-gaps-f1
---     match:float = false
---     match:workspace = f[1]
---
---     border_size = 0
---     rounding = 0
--- }
 
 hl.workspace_rule({
-    workspace = 1,
+    workspace = "1",
     monitor = "DP-1",
 })
 hl.workspace_rule({
-    workspace = 2,
+    workspace = "2",
     monitor = "DP-1",
 })
 hl.workspace_rule({
-    workspace = 3,
+    workspace = "3",
     monitor = "DP-1",
 })
 hl.workspace_rule({
-    workspace = 4,
+    workspace = "4",
     monitor = "HDMI-A-3",
 })
 hl.workspace_rule({
-    workspace = 5,
+    workspace = "5",
     monitor = "HDMI-A-3",
 })
 hl.workspace_rule({
-    workspace = 10,
+    workspace = "10",
     monitor = "HDMI-A-4",
 })
 
@@ -245,9 +150,7 @@ hl.config({
 hl.config({
     misc = {
         force_default_wallpaper = -1,
-        -- Set to 0 or 1 to disable the anime mascot wallpapers
-        disable_hyprland_logo = false,
-        -- If true disables the random hyprland logo / anime girl background. :(
+        disable_hyprland_logo = true,
         -- mouse_move_focuses_monitor = false
     },
 })
@@ -280,10 +183,6 @@ hl.gesture({
 -- Example per-device config
 -- See https://wiki.hypr.land/Configuring/Keywords/#per-device-input-configs for more
 hl.device({
-    name = "epic-mouse-v1",
-    sensitivity = -0.5,
-})
-hl.device({
     name = "gaomon-gaomon-tablet-pen",
     output = "HDMI-A-3",
 })
@@ -294,18 +193,24 @@ hl.device({
 -- See https://wiki.hypr.land/Configuring/Keywords/
 
 local mainMod = "SUPER"
+
+local terminal = "kitty"
+local fileManager = "dolphin"
+local menu = "hyprlauncher"
 -- Sets "Windows" key as main modifier
 -- CUSTOM BINDS
-hl.bind(mainMod .. " + D", hl.dsp.exec_cmd("hyprlauncher"))
-hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd("kitty"))
+hl.bind(mainMod .. " + D", hl.dsp.exec_cmd(menu))
+hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd(terminal))
 hl.bind(mainMod .. " + CTRL + F", hl.dsp.window.fullscreen())
 hl.bind(mainMod .. " + SHIFT + Print", hl.dsp.exec_cmd("grim -g \"$(slurp)\" - | wl-copy"))
+
 -- Example binds, see https://wiki.hypr.land/Configuring/Binds/ for more
-hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd("kitty"))
+hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd(terminal))
 hl.bind(mainMod .. " + SHIFT + Q", hl.dsp.window.close())
 hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch exit"))
-hl.bind(mainMod .. " + E", hl.dsp.exec_cmd("dolphin"))
+hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + F", hl.dsp.window.float())
+
 -- Move focus with mainMod
 hl.bind(mainMod .. " + H", hl.dsp.focus({ direction = "left" }))
 hl.bind(mainMod .. " + J", hl.dsp.focus({ direction = "down" }))
@@ -316,11 +221,6 @@ hl.bind(mainMod .. " + SHIFT + H", hl.dsp.window.move({ direction = "left" }))
 hl.bind(mainMod .. " + SHIFT + J", hl.dsp.window.move({ direction = "down" }))
 hl.bind(mainMod .. " + SHIFT + K", hl.dsp.window.move({ direction = "up" }))
 hl.bind(mainMod .. " + SHIFT + L", hl.dsp.window.move({ direction = "right" }))
-
-hl.bind(mainMod .. " + SHIFT + H", hl.dsp.group.move_window({ direction = "left" }))
-hl.bind(mainMod .. " + SHIFT + J", hl.dsp.group.move_window({ direction = "down" }))
-hl.bind(mainMod .. " + SHIFT + K", hl.dsp.group.move_window({ direction = "up" }))
-hl.bind(mainMod .. " + SHIFT + L", hl.dsp.group.move_window({ direction = "right" }))
 
 hl.bind(mainMod .. " + W", hl.dsp.group.toggle())
 hl.bind(mainMod .. " + CTRL + H", hl.dsp.group.next({ forward = false }))
@@ -429,7 +329,7 @@ hl.window_rule({
         class = "^(net-runelite-client-RuneLite)$",
         title = "^(win0)$",
     },
-    -- TODO: review rule: "no_focus on"
+    no_focus = true,
 })
 
 hl.window_rule({
