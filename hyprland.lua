@@ -143,6 +143,14 @@ hl.config({
         layout = "master",
     },
 
+    master = {
+        new_status = "slave",
+        orientation = "left",
+        allow_small_split = true,
+        new_on_active = "after",
+        smart_resizing = false,
+    },
+
     decoration = {
         rounding       = 5,
         rounding_power = 2,
@@ -221,13 +229,6 @@ hl.animation({ leaf = "zoomFactor",    enabled = true,  speed = 7,    bezier = "
 hl.config({
     dwindle = {
         preserve_split = true, -- You probably want this
-    },
-})
-
--- See https://wiki.hypr.land/configuring/layouts/master-layout/ for more
-hl.config({
-    master = {
-        new_status = "master",
     },
 })
 
