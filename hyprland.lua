@@ -388,6 +388,14 @@ hl.window_rule({
     no_focus = true,
 })
 
+hl.window_rule({
+  name = "blender",
+  match = {
+    class = "blender",
+  },
+  min_size = { 1000, 650 }
+})
+
 -- See https://wiki.hypr.land/configuring/core/rules/
 
 -- Example window rules that are useful
@@ -399,7 +407,7 @@ local suppressMaximizeRule = hl.window_rule({
 
     suppress_event = "maximize",
 })
--- suppressMaximizeRule:set_enabled(false)
+suppressMaximizeRule:set_enabled(true)
 
 hl.window_rule({
     -- Fix some dragging issues with XWayland
