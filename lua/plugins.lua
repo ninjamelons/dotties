@@ -94,6 +94,11 @@ require("CopilotChat").setup({
     layout = 'vertical',
     width = 100,
   },
+  instruction_files = {
+    ".github/copilot-instructions.md",
+    "AGENTS.md",
+    "README.md",
+  }
 })
 
 require('mcphub').setup({
