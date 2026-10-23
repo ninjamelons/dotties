@@ -81,7 +81,7 @@ vim.api.nvim_create_autocmd({"BufEnter"}, {
 -- Misc Plugins
 require('fzf-lua').register_ui_select()
 require("CopilotChat").setup({
-  model = "auto",
+  model = "claude-opus-5.5",
   trusted_tools = {
     'file', 'glob', 'grep', 'diff', 'gitdiff',
     'neovim_Buffer', 'neovim_Diagnostics__Buffer', 'neovim_Diagnostics__Workspace',
@@ -531,12 +531,12 @@ vim.lsp.config("roslyn_ls", {
       csharp_enable_inlay_hints_for_implicit_object_creation = true,
       csharp_enable_inlay_hints_for_implicit_variable_types = true,
       csharp_enable_inlay_hints_for_lambda_parameter_types = true,
-      csharp_enable_inlay_hints_for_types = false,
-      dotnet_enable_inlay_hints_for_indexer_parameters = false,
-      dotnet_enable_inlay_hints_for_literal_parameters = false,
+      csharp_enable_inlay_hints_for_types = true,
+      dotnet_enable_inlay_hints_for_indexer_parameters = true,
+      dotnet_enable_inlay_hints_for_literal_parameters = true,
       dotnet_enable_inlay_hints_for_object_creation_parameters = true,
-      dotnet_enable_inlay_hints_for_other_parameters = false,
-      dotnet_enable_inlay_hints_for_parameters = false,
+      dotnet_enable_inlay_hints_for_other_parameters = true,
+      dotnet_enable_inlay_hints_for_parameters = true,
     },
   },
 })
@@ -699,5 +699,4 @@ vim.lsp.enable({
   "gopls",
   "r_language_server",
   "roslyn_ls",
-  "roslyn"
 })
